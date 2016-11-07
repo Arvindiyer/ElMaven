@@ -4,7 +4,7 @@ DESTDIR = $$OUTPUT_DIR/lib
 QT+= sql network
 TEMPLATE=lib
 
-CONFIG += staticlib warn_on console silent
+CONFIG += warn_on console silent
 
 #Faster build + C++11 ++ OpenMP
 

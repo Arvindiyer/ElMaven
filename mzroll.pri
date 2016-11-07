@@ -50,8 +50,8 @@ unix {
    DEFINES -= LITTLE_ENDIAN
  #  DEFINES += CDFPARSER
  #  LIBS += -lcdfread -lnetcdf
- #  DEFINES += ZLIB
- #  LIBS += -lz -lcdfread -lnetcdf 
+    DEFINES += ZLIB
+    LIBS += -lz -lcdfread -lnetcdf 
 }
 
 

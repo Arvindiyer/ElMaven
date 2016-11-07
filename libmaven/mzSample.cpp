@@ -279,7 +279,7 @@ void mzSample::parseMzMLChromatogromList(xml_node chromatogramList) {
 
                         string binaryDataStr = binaryDataArray.child("binary").child_value();
                         vector<float> binaryData = base64::decode_base64(
-                            binaryDataStr, precision / 8, false, false);
+                            binaryDataStr, precision / 8, false, true);
 
                         if(attr.count("time array")) { timeVector = binaryData; }
                         if(attr.count("intensity array")) { intsVector = binaryData; }
@@ -372,7 +372,7 @@ void mzSample::parseMzMLSpectrumList(xml_node spectrumList) {
                         string binaryDataStr = binaryDataArray.child("binary").child_value();
                         if (!binaryDataStr.empty()) {
                             vector<float> binaryData = base64::decode_base64(
-                                binaryDataStr, precision / 8, false, false);
+                                binaryDataStr, precision / 8, false, true);
                             if (attr.count("m/z array")) {
                                 mzVector = binaryData; }
                                 if(attr.count("intensity array")) { intsVector = binaryData; }
@@ -462,7 +462,7 @@ void mzSample::parseMzData(const char* filename) {
                 int precision1 = spectrum.child("intenArrayBinary").child("data").attribute("precision").as_int();
                 string b64intensity = spectrum.child("intenArrayBinary").child("data").child_value();
                 scan->intensity = base64::decode_base64(
-                    b64intensity, precision1 / 8, false, false);
+                    b64intensity, precision1 / 8, false, true);
 
                 // cout << "mz" << endl;
                 int precision2 = spectrum.child("mzArrayBinary")
@@ -472,7 +472,7 @@ void mzSample::parseMzData(const char* filename) {
                 string b64mz =
                     spectrum.child("mzArrayBinary").child("data").child_value();
                 scan->mz =
-                    base64::decode_base64(b64mz, precision2 / 8, false, false);
+                    base64::decode_base64(b64mz, precision2 / 8, false, true);
 
                 //cout << "spectrum " << spectrum.attribute("title").value() << endl;
         }
@@ -1218,7 +1218,8 @@ int mzSample::parseCDF (const char* filename, int is_verbose)
         // double inty_pt=0;
         // double inty=0;
 
-        cdf = ms_open_read( filename );
+        char * filename_char = strdup(filename);
+        cdf = ms_open_read(filename_char);
         if ( -1 == cdf )
         {
                 fprintf( stderr, "\nopen_cdf_ms: ms_open_read failed!" );
