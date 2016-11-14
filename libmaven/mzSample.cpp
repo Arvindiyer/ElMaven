@@ -299,7 +299,10 @@ void mzSample::parseMzMLChromatogromList(xml_node chromatogramList) {
                                 scan->productMz=productMz;
                                 scan->mz.push_back(productMz);
                                 scan->filterLine= chromatogramId;
-                                scan->intensity.push_back(intsVector[i]);
+                                
+                                if(timeVector.size() < intsVector.size()){
+                                        scan->intensity.push_back(intsVector[i]);
+                                }
                                 addScan(scan);
                         }
                 }
