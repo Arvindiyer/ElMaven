@@ -135,7 +135,7 @@ namespace base64 {
         string decodedStr(dest);
         string uncompStr(mzUtils::decompress_string(decodedStr));
 
-        free(dest);
+        // free(dest);
         dest = (char *)calloc(uncompStr.size(), sizeof(char));
 
         for (int i = 0; i < uncompStr.size(); i++)
