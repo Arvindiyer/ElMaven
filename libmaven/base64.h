@@ -75,7 +75,7 @@ namespace base64 {
                     (uint64_t)swapbytes((uint32_t)(x >> 32))));
     }
 
-    void decompressString(char** dest, int& size, int float_size);
+    void decompressString(char* dest, int& size, int float_size);
 
     char* decodeString(const string& src);
     vector<float> convertDecodedDataBackToFloat(unsigned char* dest,

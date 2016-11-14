@@ -120,7 +120,7 @@ namespace base64 {
 
         char *dest = decodeString(src);
         if (decompress) {
-            decompressString(&dest, size, float_size);
+            decompressString(dest, size, float_size);
         }
 
         vector<float> decodedArray =
@@ -130,15 +130,17 @@ namespace base64 {
 
     }
 
-    void decompressString(char **dest, int &size, int float_size) {
+    void decompressString(char *dest, int &size, int float_size) {
         //Merged to 776
-        string decodedStr(*dest);
+        string decodedStr(dest);
         string uncompStr(mzUtils::decompress_string(decodedStr));
 
-        free(*dest);
-        *dest = (char *)calloc(sizeof(char), uncompStr.size());
+        free(dest);
+        dest = (char *)calloc(uncompStr.size(), sizeof(char));
+
         for (int i = 0; i < uncompStr.size(); i++)
-            *dest[i] = uncompStr[i];
+            dest[i] = uncompStr[i];
+         
 
         size = 1 + (uncompStr.size() * 3 / 4 - 4) / float_size;
     }
