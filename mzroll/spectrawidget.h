@@ -29,6 +29,7 @@ public:
                     void showNextFullScan();
                     void showLastFullScan();
                     void replot();
+                    void rtRangeGraph();
                     void spectraToClipboard();
                     void spectraToClipboardTop();
                     void overlayPeptideFragmentation(QString proteinSeq,float productAmuTolr); //TODO: Sahil, Added while merging point

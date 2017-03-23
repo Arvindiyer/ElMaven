@@ -135,6 +135,10 @@ public:
 	MavenParameters* mavenParameters;
 	QSqlDatabase localDB;					//local database
 	QDoubleSpinBox *ppmWindowBox;
+	QLabel *rtMinSpectraLabel;
+	QDoubleSpinBox *rtMinSpectra;
+	QLabel *rtMaxSpectraLabel;
+	QDoubleSpinBox *rtMaxSpectra;
 	QLineEdit *searchText;
 	QComboBox *ionizationModeComboBox;
 	QSpinBox *ionChargeBox;

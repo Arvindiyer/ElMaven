@@ -345,6 +345,41 @@ using namespace mzUtils;
 	spectralHitsDockWidget = new SpectralHitsDockWidget(this, "Spectral Hits");
     peptideFragmentation = new PeptideFragmentationWidget(this);
 
+
+	QToolBar *spectraToolBar = new QToolBar(this);
+	spectraToolBar->setObjectName("spectraToolBar");
+	spectraToolBar->setFloatable(false);
+	spectraToolBar->setMovable(false);
+
+
+	QWidget* spectraSpacer = new QWidget();
+    spectraSpacer->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+
+	spectraToolBar->addWidget(spectraSpacer);
+
+	rtMinSpectraLabel = new QLabel(spectraToolBar);
+	rtMinSpectraLabel->setText("rt min");
+	spectraToolBar->addWidget(rtMinSpectraLabel);
+
+	rtMinSpectra = new QDoubleSpinBox(spectraToolBar);
+	rtMinSpectra->setDecimals(4);
+	spectraToolBar->addWidget(rtMinSpectra);
+
+	spectraToolBar->addSeparator();
+
+	rtMaxSpectraLabel = new QLabel(spectraToolBar);
+	rtMaxSpectraLabel->setText("rt max");
+	spectraToolBar->addWidget(rtMaxSpectraLabel);
+
+	rtMaxSpectra = new QDoubleSpinBox(spectraToolBar);
+	rtMaxSpectra->setDecimals(4);
+	spectraToolBar->addWidget(rtMaxSpectra);
+
+	spectraDockWidget->setTitleBarWidget(spectraToolBar);
+
+	connect(rtMinSpectra, SIGNAL(valueChanged(double)), spectraWidget, SLOT(rtRangeGraph()));
+	connect(rtMaxSpectra, SIGNAL(valueChanged(double)), spectraWidget, SLOT(rtRangeGraph()));
+
 	setIsotopicPlotStyling();
 
 	// prepare x axis:

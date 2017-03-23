@@ -416,6 +416,8 @@ class mzLink {
              */
             Scan* getAverageScan(float rtmin, float rtmax, int mslevel, int polarity, float resolution);
 
+            Scan* getMaxScan(float rtmin, float rtmax, int mslevel, int polarity, float resolution);
+
             /**
              * [get eic based on minMz, maxMz, minRt, maxRt,mslevel]
              * @param  mzmin   [minimum m/z]

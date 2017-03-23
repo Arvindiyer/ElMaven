@@ -1457,6 +1457,42 @@ Scan* mzSample::getAverageScan(float rtmin, float rtmax, int mslevel, int polari
 }
 
 
+Scan* mzSample::getMaxScan(float rtmin, float rtmax, int mslevel, int polarity, float sd ) {
+
+	float rt=rtmin + (rtmax-rtmin)/2;
+	int scannum = 0;
+	map<float,double> mz_intensity_map;
+
+	for(unsigned int s=0; s < scans.size(); s++) {
+		if (scans[s]->getPolarity() != polarity
+			|| scans[s]->mslevel != mslevel
+			|| scans[s]->rt < rtmin
+			|| scans[s]->rt > rtmax) continue;
+
+		Scan* scan = scans[s];
+
+		for(unsigned int i=0; i < scan->mz.size(); i++) {
+			if (((double) scan->intensity[i]) > mz_intensity_map[scan->mz[i]]) {
+				mz_intensity_map[scan->mz[i]] = ((double) scan->intensity[i]);
+			}
+		}
+	}
+
+	Scan* maxScan = new Scan(this,scannum,mslevel,rt, 0, polarity);
+
+	map<float,double>::iterator itr;
+	for(itr = mz_intensity_map.begin(); itr != mz_intensity_map.end(); ++itr ) {
+			float mz = (*itr).first;
+			double intensity=(*itr).second;
+			maxScan->mz.push_back(mz);
+			maxScan->intensity.push_back((float)intensity);
+	}
+
+	return maxScan;
+
+}
+
+
 void mzSample::saveOriginalRetentionTimes() {
         if ( originalRetentionTimes.size() > 0 ) return;
 

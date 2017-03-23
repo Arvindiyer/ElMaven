@@ -87,6 +87,19 @@ void SpectraWidget::replot() {
     drawGraph();
 }
 
+void SpectraWidget::rtRangeGraph() {
+
+    double rtmin = mainwindow->rtMinSpectra->value();
+    double rtmax = mainwindow->rtMaxSpectra->value();
+
+    if ( rtmin == 0 && rtmax == 0) return;
+    if (rtmin > rtmax) return;
+    if (mainwindow->samples.empty()) return;
+
+    constructAverageScan(rtmin, rtmax);
+
+}
+
 
 void SpectraWidget::setTitle(QString titleText) {
 
@@ -1208,7 +1221,7 @@ void SpectraWidget::constructAverageScan(float rtmin, float rtmax) {
     _avgScan=NULL;
 
     if (_currentScan && _currentScan->getSample()) {
-        Scan* avgScan = _currentScan->getSample()->getAverageScan(rtmin,rtmax,_currentScan->mslevel,_currentScan->getPolarity(),(float)100.0);
+        Scan* avgScan = _currentScan->getSample()->getMaxScan(rtmin,rtmax,_currentScan->mslevel,_currentScan->getPolarity(),(float)100.0);
         qDebug() << "constructAverageScan() " << rtmin << " " << rtmax << " mslevel=" << _currentScan->mslevel << endl;
         avgScan->simpleCentroid();
         if(avgScan) setScan(avgScan);
